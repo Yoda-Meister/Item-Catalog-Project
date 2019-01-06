@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container sections">
+  <div class="row" style="color:white; text-align:center;">
+    <div class="col-md-12">
+      <h1 style="padding-bottom:50px ;">Welcome to PC Parts!</h1>
+      <p>Below you can view all the PC parts filtered by a particular Component. Click on a Component to view,
+        add, or delete PC parts.
+      </p>
+    </div>
+  </div>
+  {% if 'username' in session %}
+  <div class="row">
+    <div class="col-md-12">
+      <a href="{{ url_for('add_component') }}"><button class="btn btn-success" style="width: 35%; margin-left: 130px; margin-top: 30px;"><i class="fas fa-plus text-and-icon"></i>Add
+          component</button></a>
+      <a href="{{ url_for('add_part') }}"><button class="btn btn-primary" style="margin-left: 90px; width: 35%; margin-top: 30px;"><i class="fas fa-plus text-and-icon"></i>Add
+          part</button></a>
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<div class="container sections">
+  <div class="row">
+    <div class="col-md-4" style="background:#c5e5ff; padding-top: 8px; margin-left: 150px">
+      <h2>Component</h2>
+      <hr>
+      {% for component in components %}
+      <a href="{{ url_for('show_parts_in_component', component_id=component.id) }}">
+        <p>{{ component.name }}</p>
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="offset-md-1"></div>
+
+    <div class="col-md-4" style="background:#c5e5ff; padding-top: 8px;">
+      <h2>Latest parts</h2>
+      <hr>
+      {% for part in parts %}
+      <a href="{{ url_for('view_part', part_id=part.id) }}">
+        <p>{{ part.name }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
